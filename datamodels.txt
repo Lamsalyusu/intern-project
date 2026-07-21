@@ -1,6 +1,0 @@
-users              id, name, email, password_hash, role
-tasks              id, owner_id, title, description, status, priority,
-                   due_date, reminder_at, reminder_status
-task_collaborators task_id, user_id  (composite PK)
-messages           id, task_id, sender_id, body, created_at (indexed)
-notifications      id, user_id, type, payload(JSON), read_at

@@ -1,9 +1,0 @@
-Non-negotiable technical rules
-API base: /api/v1
-Success responses: { data, meta? } — error responses: { error: { code, message, details? } }
-Security: helmet, explicit CORS (no wildcard * in prod), express-rate-limit on auth routes specifically, never log passwords/tokens
-Socket auth: server must verify room membership on join_task — never trust the client's claim that they own/collaborate on a task
-All timestamps UTC, ISO 8601 format
-.env.example shipped, .env never committed (relevant given your recent git history incident — same rule applies here from day one)
-/health endpoint required
-Structured JSON logs with request IDs
