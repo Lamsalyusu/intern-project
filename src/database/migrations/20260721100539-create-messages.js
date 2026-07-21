@@ -3,15 +3,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
     await queryInterface.createTable('messages',{
       id:{
-        type:Sequelize.UUIDV4,
+        type:Sequelize.UUID,
         defaultValue:Sequelize.UUIDV4,
         allowNull:false,
         primaryKey:true,
@@ -26,7 +20,7 @@ module.exports = {
         onDelete:'CASCADE'
       },
       sender_id:{
-        type:Sequelize.INTEGER,
+        type:Sequelize.UUID,
         allowNull:false,
         references:{
           model:'users',
@@ -46,13 +40,7 @@ module.exports = {
     });
     await queryInterface.addIndex('messages',['task_id']);
   },
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+  async down (queryInterface) {
     await queryInterface.dropTable('messages');
   }
 };

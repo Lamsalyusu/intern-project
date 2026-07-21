@@ -22,7 +22,7 @@ module.exports = {
           model:'users',
           key:'id',
         },
-        onDelete:'CADCADE',
+        onDelete:'CASCADE',
       },
       title:{
         type:Sequelize.STRING,
