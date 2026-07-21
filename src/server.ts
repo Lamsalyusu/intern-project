@@ -9,9 +9,5 @@ async function connectDB(){
     }
 }
 connectDB();
-
 const dotenv = require('dotenv');
 dotenv.config();
-// import 
-// const PORT = process.env.PORT ||3000;
-// app.listen(PORT)
