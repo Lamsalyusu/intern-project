@@ -8,6 +8,6 @@ import Notification from "./notificationModel";
 
 // User.hasMany()
 // User.hasMany(Task,{})
-User.hasMany(Task, { foreignKey:'owner_id', as: "owner" });
-Task.belongsTo(User,{foreignKey:'owner_id', as: "owner"});
+// User.hasMany(Task, { foreignKey:'owner_id', as: "owner" });
+// Task.belongsTo(User,{foreignKey:'owner_id', as: "owner"});
 export {sequelize,User,Task,TaskCollaborator,Notification,Message}
