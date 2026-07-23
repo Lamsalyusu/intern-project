@@ -11,4 +11,4 @@ function signInToken(payload:Object):string {
 function verifyToken(token:string){
     return jwt.verify(token,jwtSecret);
 }
-export {signInToken,verifyToken};
+export { signInToken,verifyToken };
