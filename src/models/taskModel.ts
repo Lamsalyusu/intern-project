@@ -1,6 +1,6 @@
 // import { Model } from "sequelize";
-const Model = require('sequelize');
-import { DataTypes } from "sequelize";
+// const Model = require('sequelize');
+import { Model,DataTypes } from "sequelize";
 import sequelize from "../config/db";
 class task extends Model{}
 
