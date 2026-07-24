@@ -1,4 +1,4 @@
-import { signInToken,verifyToken } from "../utils/jwt";           
+import {verifyToken} from "../utils/jwt";           
 import { Request,Response,NextFunction } from "express";
 
 function authMiddleware(req:Request,res:Response,next:NextFunction){
@@ -10,6 +10,7 @@ function authMiddleware(req:Request,res:Response,next:NextFunction){
     const token = authheaders.split(" ")[1] as string;
     try{
         const decode = verifyToken(token);
+        console.log(decode);
         next();
     }
     catch(error){
