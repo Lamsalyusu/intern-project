@@ -35,14 +35,19 @@ user.init(
       allowNull: false,
       defaultValue: "user",
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    // created_at: DataTypes.DATE,
+    // updated_at: DataTypes.DATE,
 },
 
     {
         sequelize,
         modelName:"user",
         tableName:"users",
+        timestamps: true,
+        createdAt: "created_at",
+        updatedAt: "updated_at",
+        underscored: true,
+
     }
 
 );
