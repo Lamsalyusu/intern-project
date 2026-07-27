@@ -17,3 +17,4 @@ function authMiddleware(req:Request,res:Response,next:NextFunction){
         return res.status(403).json({error:{message:'invalid or expires token'}})
     }
 }
+export default authMiddleware;
