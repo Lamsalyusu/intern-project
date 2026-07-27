@@ -6,4 +6,5 @@ export const taskSchema = z.object({
     priority:z.enum(["low","medium","high"]).optional(),
     due_date: z.string().datetime().optional(),
     reminder_at: z.string().datetime().optional(),
-})
+});
+export type Taskrequire = z.infer<typeof taskSchema>;
