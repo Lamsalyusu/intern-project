@@ -1,6 +1,6 @@
 import { Model,DataTypes } from "sequelize";
-// import { sequelize } from "../config/db";
-const sequelize = require('../config/db');
+import  sequelize  from "../config/db";
+// const sequelize = require('../config/db');
 class messages extends Model{}
 messages.init(
     {

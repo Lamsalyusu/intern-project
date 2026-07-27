@@ -1,5 +1,5 @@
-import { Sequelize,Model,DataTypes } from "sequelize";
-const sequelize = require('../config/db');
+import { Model,DataTypes } from "sequelize";
+import sequelize from '../config/db';
 
 class taskCollaborator extends Model{
 

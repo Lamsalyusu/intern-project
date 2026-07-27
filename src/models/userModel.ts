@@ -1,10 +1,13 @@
-// import { Model } from "sequelize";
-// const {Sequelize,DataTypes,Model} = require('sequelize');
+
 import {Sequelize,DataTypes,Model} from "sequelize"
-// import { DataTypes } from "sequelize";
-// import sequelize from "../config/db";
-const sequelize = require('../config/db');
-class user extends Model{}
+import sequelize  from "../config/db"
+class user extends Model{
+  declare id: string;
+  declare name: string;
+  declare email: string;
+  declare password_hash: string;
+  declare role: string;
+}
 
 user.init(
     {
