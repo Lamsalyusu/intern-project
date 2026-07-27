@@ -10,7 +10,8 @@ function authMiddleware(req:Request,res:Response,next:NextFunction){
     const token = authheaders.split(" ")[1] as string;
     try{
         const decode = verifyToken(token);
-        console.log(decode);
+        (req as any).user = decode
+        // console.log(decode);
         next();
     }
     catch(error){
