@@ -1,13 +1,15 @@
 import express from 'express';
-const router = express.Router();
+const taskrouter = express.Router();
 
 import taskController from '../controllers/taskController';
 import authMiddleware from '../middlewares/authmiddleware';
 import validation from '../middlewares/validatemiddleware';
 import { taskSchema, taskQuery } from '../validators/taskValidator';
 
-router.post('/', authMiddleware, validation(taskSchema), taskController.create);
-router.get('/', authMiddleware, validation(taskQuery), taskController.getAll);
-router.get('/:id', authMiddleware, taskController.getone);
-router.put('/:id', authMiddleware, validation(taskSchema), taskController.update);
-router.delete('/:id', authMiddleware, taskController.delete);
+taskrouter.post('/', authMiddleware, validation(taskSchema), taskController.create);
+taskrouter.get('/', authMiddleware, validation(taskQuery), taskController.getAll);
+taskrouter.get('/:id', authMiddleware, taskController.getone);
+taskrouter.put('/:id', authMiddleware, validation(taskSchema), taskController.update);
+taskrouter.delete('/:id', authMiddleware, taskController.delete);
+
+export default taskrouter;
