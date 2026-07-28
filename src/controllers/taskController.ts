@@ -51,7 +51,7 @@ const taskControllers = {
             return res.status(error.status || 500).json({message:error.message||'something went wrong'});
         }
     },
-    delete:async(req:Request,res:Response) => {
+    remove:async(req:Request,res:Response) => {
         try{
         const taskid = req.params.id as string;
         const userid = (req as any).user.id;
