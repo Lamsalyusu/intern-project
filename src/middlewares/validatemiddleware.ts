@@ -43,7 +43,10 @@ function validation(schema: ZodSchema) {
       });
     }
 
-    req.body = result.data;
+    // req.body = result.data;
+    // req.query itself is read-only in some Express versions, safer to attach separately
+    // next();
+    (req as any).validatedQuery = result.data;
     next();
   };
 }
