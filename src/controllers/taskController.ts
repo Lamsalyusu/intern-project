@@ -31,7 +31,7 @@ const taskControllers = {
     getAll:async(req:Request,res:Response)=>{
         try{
             // const query = req.query as unknown as taskqueryschema;
-            const query = (req as any).validation;
+            const query = (req as any).validatedQuery;
             const userid = (req as any).user.id;
             const result = await getTasksByOwner(userid,query);
             return res.status(200).json({data:result,message:'retrived all tasks'});

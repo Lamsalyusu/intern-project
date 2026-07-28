@@ -25,7 +25,6 @@
 
 // }
 // export default validation;
-
 import { Request, Response, NextFunction } from "express";
 import { ZodSchema } from "zod";
 
@@ -43,12 +42,28 @@ function validation(schema: ZodSchema) {
       });
     }
 
-    // req.body = result.data;
-    // req.query itself is read-only in some Express versions, safer to attach separately
-    // next();
+    req.body = result.data;
+    next();
+  };
+}
+
+function validateQuery(schema: ZodSchema) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.query);
+
+    if (!result.success) {
+      return res.status(400).json({
+        error: {
+          code: "VALIDATION_ERROR",
+          message: "Invalid input",
+          details: result.error.flatten().fieldErrors,
+        },
+      });
+    }
+
     (req as any).validatedQuery = result.data;
     next();
   };
 }
 
-export default validation;
+export { validation, validateQuery };
