@@ -14,7 +14,7 @@ const taskControllers = {
 
         }
         catch(error:any){
-            return res.status(error.status|| 500).json({message:error.message||"something went wrong"});
+            return res.status(error.status || 500).json({ error: { message: error.message || "something went wrong" } });
         }
     },
     getone:async(req:Request,res:Response)=>{
@@ -25,18 +25,19 @@ const taskControllers = {
             return res.status(200).json({data:result,message:'task retrieved successfully'});
         }
         catch(error:any){
-            return res.status(error.status || 500).json({message:error.message ||"something went wrong"})
+            return res.status(error.status || 500).json({ error: { message: error.message || "something went wrong" } });
         }
     },
     getAll:async(req:Request,res:Response)=>{
         try{
-            const query = req.query as unknown as taskqueryschema;
+            // const query = req.query as unknown as taskqueryschema;
+            const query = (req as any).validation;
             const userid = (req as any).user.id;
             const result = await getTasksByOwner(userid,query);
             return res.status(200).json({data:result,message:'retrived all tasks'});
         }
         catch(error:any){
-            return res.status(error.status||500).json({message:error.message||'something went wrong'});
+            return res.status(error.status || 500).json({ error: { message: error.message || 'something went wrong' } });
         }
     },
     update:async(req:Request,res:Response) =>{
@@ -48,7 +49,7 @@ const taskControllers = {
             return res.status(200).json({data:result,message:'task updated successfully'});
 
         }catch(error:any){
-            return res.status(error.status || 500).json({message:error.message||'something went wrong'});
+            return res.status(error.status || 500).json({ error: { message: error.message || "something went wrong" } });
         }
     },
     remove:async(req:Request,res:Response) => {
@@ -59,7 +60,7 @@ const taskControllers = {
         return res.status(200).json({message:'task deleted successfully'});
         }
         catch(error:any){
-            return res.status(error.status || 500).json({message:error.message || 'something went wrong'})
+            return res.status(error.status || 500).json({ error: { message: error.message || "something went wrong" } });
         }
     }
     
