@@ -10,6 +10,6 @@ taskrouter.post('/', authMiddleware, validation(taskSchema), taskController.crea
 taskrouter.get('/', authMiddleware, validation(taskQuery), taskController.getAll);
 taskrouter.get('/:id', authMiddleware, taskController.getone);
 taskrouter.put('/:id', authMiddleware, validation(taskSchema), taskController.update);
-taskrouter.delete('/:id', authMiddleware, taskController.delete);
+taskrouter.delete('/:id', authMiddleware, taskController.remove);   
 
 export default taskrouter;
