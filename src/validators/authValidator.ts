@@ -19,8 +19,13 @@
 // // export{ RegisterInput,LoginInput };
 
 import { z } from 'zod';
+import validator from 'validator';
 export const registerSchema = z.object({
-  name: z.string().trim().min(2, "Name Must be at least 2 characters"),
+  name: z
+  .string()
+  .trim()
+  .min(2, "Name Must be at least 2 characters")
+  .transform((val) => validator.escape(val)),
   email: z.string().email("Invalid email format"),
   password: z
     .string()
