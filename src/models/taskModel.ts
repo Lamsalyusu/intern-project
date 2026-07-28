@@ -2,7 +2,17 @@
 // const Model = require('sequelize');
 import { Model,DataTypes } from "sequelize";
 import sequelize from "../config/db";
-class task extends Model{}
+class task extends Model{
+    declare id: string;
+  declare owner_id: string;
+  declare title: string;
+  declare description: string;
+  declare status: string;
+  declare priority: string;
+  declare due_date: Date;
+  declare reminder_at: Date;
+  declare reminder_status: string;
+}
 
 task.init(
     {
