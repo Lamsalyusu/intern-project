@@ -18,7 +18,6 @@
 // export type LoginInput = z.infer<typeof loginSchema>;
 // // export{ RegisterInput,LoginInput };
 
-
 import { z } from 'zod';
 export const registerSchema = z.object({
   name: z.string().trim().min(2, "Name Must be at least 2 characters"),
