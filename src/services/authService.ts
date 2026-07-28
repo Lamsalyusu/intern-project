@@ -3,7 +3,6 @@ import { findByEmail, createUser } from "../repositories/userRepository";
 import { signInToken } from "../utils/jwt";
 import { RegisterInput, LoginInput } from "../validators/authValidator";
 
-// const SALT_ROUNDS = 10; // brief requires cost >= 10
 
 async function registerUser(data: RegisterInput) {
   const existingUser = await findByEmail(data.email);
