@@ -3,7 +3,7 @@
 import { Model,DataTypes } from "sequelize";
 import sequelize from "../config/db";
 class task extends Model{
-    declare id: string;
+  declare id: string;
   declare owner_id: string;
   declare title: string;
   declare description: string;

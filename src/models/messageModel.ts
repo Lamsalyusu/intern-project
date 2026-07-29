@@ -29,6 +29,12 @@ messages.init(
     sequelize,
     modelName: "Message",
     tableName: "messages",
+    timestamps:true,
+    createdAt:"created_at",
+    updatedAt:'updated_at',
+    underscored:true
+
+
     }
 )
 export default messages;
