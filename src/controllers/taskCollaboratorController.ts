@@ -1,0 +1,51 @@
+import {Request,Response} from 'express';
+import { taskcollaboratorvalidation } from '../validators/taskCollaboratorValidator';
+import { createTaskCollaborator,deleteTaskCollaborator,getCollaboratorsByTask } from '../services/taskCollaboratorServices';
+const taskCollaboratorController = {
+    create:async(req:Request,res:Response)=>{
+        try{
+            const {email}= req.body as taskcollaboratorvalidation;
+            //task id chai parameter bata aauxa hai
+            const task_id = req.params.id as string;
+            //reqid chai new add garne collaborator ko id ho 
+            const reqid = (req as any).user.id;
+
+            const result = await createTaskCollaborator(task_id,reqid,email);
+            return res.status(201).json({data:result,message:'collaborator added successfully'});
+
+        }
+        catch(error:any){
+            return res.status(error.status || 500).json({error:{message:error.message ||'something went wrong'}})
+        }
+    },
+
+    getCollaborator:async(req:Request,res:Response)=>{
+        try{
+            //task id chai parameter bata aauxa hai
+            const task_id = req.params.id as string;
+            //reqid chai new add garne collaborator ko id ho 
+            const reqid = (req as any).user.id;
+            const result = await getCollaboratorsByTask(task_id,reqid);
+            return res.status(200).json({data:result,message:'fetched collaborator'});
+        }
+        catch(error:any){
+            return res.status(error.status || 500 ).json({error:{message:error.message || 'something went wrong' }})
+        }
+    },
+    deleteCollaborators:async(req:Request,res:Response)=>{
+        try{
+             //task id chai parameter bata aauxa hai
+            const task_id = req.params.id as string;
+            //reqid chai new add garne collaborator ko id ho 
+            const reqid = (req as any).user.id;
+            // 
+            const user_id = req.params.userId as string;
+            const delcoab = await deleteTaskCollaborator(task_id,reqid,user_id);
+            return res.status(200).json({message:'deleted collaborator successfully'});
+        }
+        catch(error:any){
+            return res.status(error.status || 500).json({error:{message:error.message || 'something went wrong'}});
+        }
+    }
+}
+export default taskCollaboratorController;
