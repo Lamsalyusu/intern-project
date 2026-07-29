@@ -18,5 +18,4 @@ async function add(task_id:string,user_id:string){
 async function remove(task_id:string,user_id:string){
     return TaskCollaborator.destroy({where:{task_id,user_id}})
 }
-
 export {findOne,findAllByTask,add,remove};
