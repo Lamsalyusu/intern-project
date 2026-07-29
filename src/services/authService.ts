@@ -11,7 +11,7 @@ async function registerUser(data: RegisterInput) {
     throw { status: 409, message: "Email already in use" };
   }
 
-  const password_hash = await bcrypt.hash(data.password,10 );
+  const password_hash = await bcrypt.hash(data.password,10);
 
   const user = await createUser({
     name: data.name,
