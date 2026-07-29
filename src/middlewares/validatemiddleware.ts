@@ -22,7 +22,6 @@
 // req.body = result.data;
 // next();
 
-
 // }
 // export default validation;
 import { Request, Response, NextFunction } from "express";
