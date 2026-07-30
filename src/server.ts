@@ -16,6 +16,7 @@ async function connectDB() {
 connectDB();
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on ${PORT}`);
+const HOST = process.env.HOST || '127.0.0.1';
+app.listen(Number(PORT),HOST, () => {
+ console.log(`Server running on http://${HOST}:${PORT}`);
 });

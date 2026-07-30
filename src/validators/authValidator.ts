@@ -41,9 +41,9 @@ export const loginSchema = z.object({
   .email("Invalid email format"),
   password: z
   .string()
-  .trim()
   .min(6, "Password is required")
   .max(20,'password must not exceed more than 20 characters')
+  .regex(/^\S+$/, "Password cannot contain spaces"),
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;
