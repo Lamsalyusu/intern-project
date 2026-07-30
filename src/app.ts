@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './routes/authRoutes';
 import taskrouter from './routes/taskRoutes'
+import errorHandler from './middlewares/errormiddleware';
 const app = express();
 app.use(express.json());
 import cors from 'cors';
@@ -12,4 +13,5 @@ app.use('/api/v1/tasks',taskrouter)
 app.get('/health',(req,res)=>{
     res.status(200).json({status:'ok',message:'app running smoothly'});
 });
+app.use(errorHandler);
 export default app;

@@ -1,8 +1,8 @@
-import {Request,Response} from 'express';
+import {Request,Response,NextFunction} from 'express';
 import { taskcollaboratorvalidation } from '../validators/taskCollaboratorValidator';
 import { createTaskCollaborator,deleteTaskCollaborator,getCollaboratorsByTask } from '../services/taskCollaboratorServices';
 const taskCollaboratorController = {
-    create:async(req:Request,res:Response)=>{
+    create:async(req:Request,res:Response,next:NextFunction)=>{
         try{
             const {email}= req.body as taskcollaboratorvalidation;
             //task id chai parameter bata aauxa hai
@@ -15,11 +15,12 @@ const taskCollaboratorController = {
 
         }
         catch(error:any){
-            return res.status(error.status || 500).json({error:{message:error.message ||'something went wrong'}})
+            // return res.status(error.status || 500).json({error:{message:error.message ||'something went wrong'}})
+            next(error);
         }
     },
 
-    getCollaborator:async(req:Request,res:Response)=>{
+    getCollaborator:async(req:Request,res:Response,next:NextFunction)=>{
         try{
             //task id chai parameter bata aauxa hai
             const task_id = req.params.id as string;
@@ -29,22 +30,24 @@ const taskCollaboratorController = {
             return res.status(200).json({data:result,message:'fetched collaborator'});
         }
         catch(error:any){
-            return res.status(error.status || 500 ).json({error:{message:error.message || 'something went wrong' }})
+            // return res.status(error.status || 500 ).json({error:{message:error.message || 'something went wrong' }})
+            next(error);
         }
     },
-    deleteCollaborators:async(req:Request,res:Response)=>{
+    deleteCollaborators:async(req:Request,res:Response,next:NextFunction)=>{
         try{
              //task id chai parameter bata aauxa hai
             const task_id = req.params.id as string;
             //reqid chai new add garne collaborator ko id ho 
-            const reqid = (req as any).user.id;
+            const reqid = (req as any).useer.id;
             // 
             const user_id = req.params.userId as string;
             const delcoab = await deleteTaskCollaborator(task_id,reqid,user_id);
             return res.status(200).json({message:'deleted collaborator successfully'});
         }
         catch(error:any){
-            return res.status(error.status || 500).json({error:{message:error.message || 'something went wrong'}});
+            // return res.status(error.status || 500).json({error:{message:error.message || 'something went wrong'}});
+            next(error);
         }
     }
 }
