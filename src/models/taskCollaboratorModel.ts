@@ -30,7 +30,7 @@ taskCollaborator.init(
     tableName: "task_collaborators",
     timestamps: true,
     createdAt: "created_at",
-    updatedAt: "updated_at",
+    updatedAt: false,
     underscored: true
     }
 
