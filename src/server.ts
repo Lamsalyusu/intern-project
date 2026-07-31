@@ -1,8 +1,18 @@
 import dotenv from 'dotenv';
 dotenv.config(); 
-
+import express from 'express';
+import {createServer} from 'http';
+import {Server,Socket} from 'socket.io'
 import  sequelize  from "./config/db";
 import app from './app';
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors:{
+    origin:process.env.CLIENT_URL || 'http://localhost:3000',
+    methods:['GET','POST']
+  }
+})
 
 async function connectDB() {
   try {
@@ -14,6 +24,18 @@ async function connectDB() {
 }
 
 connectDB();
+
+io.on('connection',(socket:Socket)=> {
+  console.log(`user connected, ${socket.id}`);
+
+  socket.on('message',(data)=>{
+    console.log(`message received ${data}`)
+  });
+
+  socket.on('disconnect',()=>{
+    console.log(`User disconnected ${socket.id}`)
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
