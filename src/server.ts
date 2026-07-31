@@ -5,15 +5,16 @@ import {createServer} from 'http';
 import {Server,Socket} from 'socket.io'
 import  sequelize  from "./config/db";
 import app from './app';
+import socketMiddleware from './sockets/socketMiddleware';
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors:{
-    origin:process.env.CLIENT_URL || 'http://localhost:3000',
+    origin:process.env.CLIENT_URL || 'http://0.0.0.0:3000',
     methods:['GET','POST']
   }
-})
-
+});
+io.use(socketMiddleware);
 async function connectDB() {
   try {
     await sequelize.authenticate();
@@ -22,7 +23,6 @@ async function connectDB() {
     console.log("Error while connecting DB", error);
   }
 }
-
 connectDB();
 
 io.on('connection',(socket:Socket)=> {
@@ -39,6 +39,6 @@ io.on('connection',(socket:Socket)=> {
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
-app.listen(Number(PORT),HOST, () => {
+httpServer.listen(Number(PORT),HOST, () => {
  console.log(`Server running on http://${HOST}:${PORT}`);
 });
