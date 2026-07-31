@@ -39,7 +39,7 @@ const taskCollaboratorController = {
              //task id chai parameter bata aauxa hai
             const task_id = req.params.id as string;
             //reqid chai new add garne collaborator ko id ho 
-            const reqid = (req as any).useer.id;
+            const reqid = (req as any).user.id;
             // 
             const user_id = req.params.userId as string;
             const delcoab = await deleteTaskCollaborator(task_id,reqid,user_id);

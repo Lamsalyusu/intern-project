@@ -4,7 +4,7 @@ import  sequelize  from "../config/db";
 class messages extends Model{}
 messages.init(
     {
-        id: {
+      id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
