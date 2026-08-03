@@ -43,7 +43,7 @@ const taskCollaboratorController = {
             // 
             const user_id = req.params.userId as string;
             const delcoab = await deleteTaskCollaborator(task_id,reqid,user_id);
-            return res.status(200).json({message:'deleted collaborator successfully'});
+            return res.status(200).json({data:delcoab,message:'deleted collaborator successfully'});
         }
         catch(error:any){
             // return res.status(error.status || 500).json({error:{message:error.message || 'something went wrong'}});

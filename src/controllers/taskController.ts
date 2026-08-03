@@ -61,7 +61,7 @@ const taskControllers = {
         const taskid = req.params.id as string;
         const userid = (req as any).user.id;
         const result = await deleteTask(taskid,userid);
-        return res.status(200).json({message:'task deleted successfully'});
+        return res.status(200).json({data:result,message:'task deleted successfully'});
         }
         catch(error:any){
             // return res.status(error.status || 500).json({ error: { message: error.message || "something went wrong" } });

@@ -2,9 +2,19 @@ import {z} from 'zod';
 import validator from 'validator';
 // taskSchema --> "is the task data itself valid"
 export const taskSchema = z.object({
-    title:z.string().trim().min(1,"title is reqired").transform((val) => validator.escape(val)),
-    description:z.string().trim().optional().transform((val) => (val ? validator.escape(val) : val)),
-    status:z.enum(["pending","completed","in_progress"]).optional(),
+    title:z
+    .string()
+    .trim()
+    .min(1,"title is reqired")
+    .max(50,'title must not exceed 50 chars')
+    .transform((val) => validator.escape(val)),
+    description:z
+    .string()
+    .trim()
+    .optional()
+    .transform((val) => (val ? validator.escape(val) : val)),
+    status:z.
+    enum(["pending","completed","in_progress"]).optional(),
     priority:z.enum(["low","medium","high"]).optional(),
     due_date: z.string().datetime().optional(),
     reminder_at: z.string().datetime().optional(),
