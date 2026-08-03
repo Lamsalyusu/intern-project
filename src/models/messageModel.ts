@@ -23,6 +23,7 @@ messages.init(
       allowNull: false,
     },
     created_at: DataTypes.DATE,
+    updated_at:DataTypes.DATE
   },
   
   {
