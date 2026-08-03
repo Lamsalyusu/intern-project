@@ -6,12 +6,14 @@ const app = express();
 app.use(express.json());
 import cors from 'cors';
 import taskCollaboratorRouter from './routes/taskCollaboratorRoutes';
+import messageRoutes from './routes/messageRoutes';
 app.use(cors());
 
 
 app.use('/api/v1/auth',router);
 app.use('/api/v1/tasks',taskrouter)
 app.use('/api/v1/tasks',taskCollaboratorRouter)
+app.use('/api/v1/tasks',messageRoutes)
 app.get('/health',(req,res)=>{
     res.status(200).json({status:'ok',message:'app running smoothly'});
 });
