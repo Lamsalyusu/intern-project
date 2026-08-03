@@ -2,11 +2,11 @@ import express from 'express';
 const taskCollaboratorRouter = express.Router();
 import taskCollaboratorController from '../controllers/taskCollaboratorController';
 import { collaboratorschema } from '../validators/taskCollaboratorValidator';
-import { validation } from '../middlewares/validatemiddleware';
+import { validateParams, validation } from '../middlewares/validatemiddleware';
 import authMiddleware from '../middlewares/authmiddleware';
+import { collaboratorParamsSchema, taskIdParamSchema } from '../validators/paramValidator';
 
-taskCollaboratorRouter.post('/:id/collaborators', authMiddleware, validation(collaboratorschema), taskCollaboratorController.create);
-taskCollaboratorRouter.get('/:id/collaborators', authMiddleware, taskCollaboratorController.getCollaborator);
-taskCollaboratorRouter.delete('/:id/collaborators/:userId', authMiddleware, taskCollaboratorController.deleteCollaborators);
-
+taskCollaboratorRouter.post('/:id/collaborators', authMiddleware, validateParams(taskIdParamSchema), validation(collaboratorschema), taskCollaboratorController.create);
+taskCollaboratorRouter.get('/:id/collaborators', authMiddleware, validateParams(taskIdParamSchema), taskCollaboratorController.getCollaborator);
+taskCollaboratorRouter.delete('/:id/collaborators/:userId', authMiddleware, validateParams(collaboratorParamsSchema), taskCollaboratorController.deleteCollaborators);
 export default taskCollaboratorRouter;

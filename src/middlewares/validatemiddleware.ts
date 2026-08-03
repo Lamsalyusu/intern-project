@@ -65,4 +65,16 @@ function validateQuery(schema: ZodSchema) {
   };
 }
 
-export { validation, validateQuery };
+function validateParams(schema: ZodSchema) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.params);
+    if (!result.success) {
+      return res.status(400).json({
+        error: { code: 400, message: "Invalid input", details: result.error.flatten().fieldErrors },
+      });
+    }
+    next();
+  };
+}
+
+export { validation, validateQuery,validateParams};
