@@ -2,4 +2,4 @@
 2. hashrounding --> 16 bytes string called salt + 2^(hash rounding) 
 3. parse + safe parse --> parse run time error(program crash) + safeparse (no error no program crash ) 
 4. source map --> When you enable source maps, the TypeScript compiler (tsc) generates a companion .js.map file for every compiled .js file. This file contains a structural data map that tells debugging tools exactly which line of JavaScript corresponds to which line of your original TypeScript.
-5. declaration --> The "declaration": true option in tsconfig.json tells the TypeScript compiler to automatically generate .d.ts definition files alongside your compiled .js files.These definition files contain only type information (interfaces, types, and function signatures). They contain absolutely no executable JavaScript code.
+5. declaration --> The "declaration": true option in tsconfig.json tells the TypeScript compiler to automatically generate .d.ts definition files alongside your compiled .js files.These definition files contain only type information (interfaces, types, and function signatures). They contain absolutely no executable JavaScript code.import {createServer} from 'http';
