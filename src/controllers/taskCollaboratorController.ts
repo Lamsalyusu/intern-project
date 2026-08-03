@@ -12,14 +12,12 @@ const taskCollaboratorController = {
 
             const result = await createTaskCollaborator(task_id,reqid,email);
             return res.status(201).json({data:result,message:'collaborator added successfully'});
-
         }
         catch(error:any){
             // return res.status(error.status || 500).json({error:{message:error.message ||'something went wrong'}})
             next(error);
         }
     },
-
     getCollaborator:async(req:Request,res:Response,next:NextFunction)=>{
         try{
             //task id chai parameter bata aauxa hai

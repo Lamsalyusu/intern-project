@@ -42,11 +42,14 @@ async function getCollaboratorsByTask(task_id:string,reqid:string){
     if(!task){
         throw {status:404,message:'task not found'}
     }
-    if (task.owner_id !== reqid){
-        throw{message:'not a collaborator'}
+    const isOwner = task.owner_id === reqid;
+    const isCollaborator = await findOne(task_id, reqid);
+
+    if (!isOwner && !isCollaborator) {
+        throw { status: 403, message: 'not authorized to view this task\'s collaborators' };
     }
 
-    const collaboratos = findAllByTask(task_id);
+    const collaboratos = await findAllByTask(task_id);
     return collaboratos;
 }
 
@@ -56,7 +59,7 @@ if(!deltask){
     throw {status :404,message:'task not found'}
 }
 if (deltask.owner_id !== reqid){
-    throw{status :403,message:'only the task wowner can remove the task'}
+    throw{status :403,message:'only the task owner can remove the task'}
 }
 const delcollaborator = await remove(task_id,user_id);
 if(delcollaborator === 0){

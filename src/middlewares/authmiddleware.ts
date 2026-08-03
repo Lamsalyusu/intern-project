@@ -8,6 +8,9 @@ function authMiddleware(req:Request,res:Response,next:NextFunction){
         return res.status(401).json({error:{message:'no token provided'}});
     }
     const token = authheaders.split(" ")[1] as string;
+    if(!token){
+        return res.status(401).json({error:{message:'no token provided'}});
+    }
     try{
         const decode = verifyToken(token);
         (req as any).user = decode

@@ -34,7 +34,7 @@ function validation(schema: ZodSchema) {
     if (!result.success) {
       return res.status(400).json({
         error: {
-          code: "VALIDATION_ERROR",
+          code: 400,
           message: "Invalid input",
           details: result.error.flatten().fieldErrors,
         },
@@ -53,7 +53,7 @@ function validateQuery(schema: ZodSchema) {
     if (!result.success) {
       return res.status(400).json({
         error: {
-          code: "VALIDATION_ERROR",
+          code: 400,
           message: "Invalid input",
           details: result.error.flatten().fieldErrors,
         },
