@@ -1,5 +1,6 @@
 import {Server,Socket} from 'socket.io'
 import socketMiddleware from './socketMiddleware';
+import registerChatHandler from './chatHandler';
 
 // const httpServer = createServer(app);\
 function initSocket(httpServer:any){
@@ -12,13 +13,7 @@ const io = new Server(httpServer,{
 io.use(socketMiddleware);
 
 io.on('connection',(socket:Socket)=> {
-  console.log(`user connected, ${socket.id}`);
-  socket.on('message',(data)=>{
-    console.log(`message received ${data}`)
-  });
-  socket.on('disconnect',()=>{
-    console.log(`User disconnected ${socket.id}`)
-  });
+  registerChatHandler(io,socket);
 });
 return io;
 }
