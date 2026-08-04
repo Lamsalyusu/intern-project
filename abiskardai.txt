@@ -12,4 +12,6 @@ npm run lint
 npm run build
 instead of using 
 npx ts-node src/server.ts
-
+8.Helemt --> used for security purposes
+---> Without Helmet: Your server announces to the world, "Hi! I am running Express version 4.17. I allow any website to put my pages in an iframe, and I let the browser run any script it finds." Attackers use this information to hack you.
+---> With Helmet: Your server stays completely silent about what technology it uses, and strictly tells the browser, "Only run code that I explicitly approve, and never let anyone copy my pages."

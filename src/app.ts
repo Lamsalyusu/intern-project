@@ -2,7 +2,10 @@ import express from 'express';
 import router from './routes/authRoutes';
 import taskrouter from './routes/taskRoutes'
 import errorHandler from './middlewares/errormiddleware';
+import helmet from 'helmet';
 const app = express();
+const helmes = helmet()
+app.use(helmet());
 app.use(express.json());
 import cors from 'cors';
 import taskCollaboratorRouter from './routes/taskCollaboratorRoutes';
