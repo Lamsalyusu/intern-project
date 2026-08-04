@@ -17,6 +17,7 @@ async function checkAccess(task_id:string,user_id:string){
     if(!owner && !iscollaborator){
         throw { status :403 ,message: 'not authorized to access the chat'}
     }
+    return iscollaborator;
 
 }
 
@@ -34,4 +35,4 @@ async function getMessage(task_id:string,requesterId:string,page:number,limit:nu
     const message = await findByTask(task_id,page,limit);
     return message;
 }
-export {sendMessage,getMessage}
+export {sendMessage,getMessage,checkAccess}
