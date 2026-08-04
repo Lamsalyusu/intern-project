@@ -6,8 +6,7 @@ import initSocket from './sockets';
 import { createServer } from 'node:http';
 
 const httpServer = createServer(app);
-const io = initSocket(httpServer);
-
+initSocket(httpServer);
 async function connectDB() {
   try {
     await sequelize.authenticate();

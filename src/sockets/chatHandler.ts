@@ -1,16 +1,11 @@
-// import { NextFunction,Request,Response } from "express";
-// const registerChatHandler = {
-//     join_task:async function (req:Request,res:Response,next:NextFunction){
-//     }
-// }
-//chat handling garda express ko req ,res, next function use a garne
+//chat handling garda express ko req ,res, next function use nagarne
 
-import { Server,Socket } from "socket.io";
+import { Namespace,Socket } from "socket.io";
 import { sendMessage } from "../services/messageService";
 import { messageValidationSchema } from "../validators/messageValidators";
 import { checkAccess } from "../services/messageService";
 
-function registerChatHandler(io:Server,socket:Socket){
+function registerChatHandler(io:Namespace,socket:Socket){
     socket.on('join_task',async(data)=>{
         const userid = socket.data.user.id;
         const taskid = data.task_id;

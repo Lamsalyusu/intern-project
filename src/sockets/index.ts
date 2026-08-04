@@ -1,8 +1,7 @@
-import {Server,Socket} from 'socket.io'
+import {Server,Socket,Namespace} from 'socket.io'
 import socketMiddleware from './socketMiddleware';
 import registerChatHandler from './chatHandler';
 
-// const httpServer = createServer(app);\
 function initSocket(httpServer:any){
 const io = new Server(httpServer,{
     cors:{
@@ -10,11 +9,16 @@ const io = new Server(httpServer,{
     methods:['GET','POST']
   }
 })
-io.use(socketMiddleware);
+  const chatNamespace: Namespace = io.of('/chat');
 
-io.on('connection',(socket:Socket)=> {
-  registerChatHandler(io,socket);
+  chatNamespace.use(socketMiddleware);
+  chatNamespace.on('connection',(socket:Socket)=> {
+   console.log(`connected successfully ${socket.id}`);
+     registerChatHandler(chatNamespace,socket);
+   socket.on('disconnect',()=>{
+    console.log(`disconnected client ${socket.id}`)
+   });
 });
 return io;
 }
-export default initSocket;
+export default initSocket;  

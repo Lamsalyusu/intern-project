@@ -5,7 +5,6 @@ function socketMiddleware(socket:Socket,next:(err?:Error)=>void){
   // Extract data passed from the client during handshake
   const token = socket.handshake.auth.token;
   if (!token) {
-    // Call next() with no arguments to allow the connection
     return next(new Error('Authentication error:No token provided'))
   } 
   try{
