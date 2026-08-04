@@ -6,7 +6,7 @@ import initSocket from './sockets';
 import { createServer } from 'node:http';
 
 const httpServer = createServer(app);
-// const io = initSocket(httpServer);
+const io = initSocket(httpServer);
 
 async function connectDB() {
   try {
