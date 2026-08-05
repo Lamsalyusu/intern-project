@@ -14,8 +14,6 @@ const messageControllers = {
         catch(error:any){
         next(error);
     }
-
-    
     },
 
     send:async(req:Request,res:Response,next:NextFunction)=>{

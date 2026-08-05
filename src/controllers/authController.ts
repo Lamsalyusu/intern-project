@@ -2,9 +2,9 @@ import { findById } from "../repositories/userRepository";
 import { LoginInput, RegisterInput} from "../validators/authValidator";
 import { registerUser,loginUser } from "../services/authService";
 import { NextFunction, Request,Response } from "express";
-import errorHandler from "../middlewares/errormiddleware";
-// const bcrypt = require('bcrypt');
-// import bcrypt from 'bcrypt';
+import _errorHandler from "../middlewares/errormiddleware";
+// const _bcrypt = require('bcrypt');
+import _bcrypt from 'bcrypt';
 
 const authController = {
     register: async(req:Request,res:Response,next:NextFunction) =>{

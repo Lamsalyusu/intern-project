@@ -1,4 +1,4 @@
-import {create,findById,findByOwner,update,remove} from "../repositories/taskRepository";
+import {create} from "../repositories/taskRepository";
 import {Taskrequire,taskqueryschema} from "../validators/taskValidator";
 import {createTask,deleteTask,getTaskById,getTasksByOwner,updateTask} from '../services/taskService';
 import { Request,Response,NextFunction } from "express";
