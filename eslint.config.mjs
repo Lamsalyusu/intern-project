@@ -7,7 +7,7 @@ export default [
     files: ["**/*.ts"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": "off",
     },
   },
   {
@@ -16,6 +16,9 @@ export default [
       "@typescript-eslint/no-require-imports": "off",
       "no-undef": "off",
       "@typescript-eslint/no-unused-vars": "off",
+       "no-unused-vars": "off",
+      
     },
   },
 ];
+

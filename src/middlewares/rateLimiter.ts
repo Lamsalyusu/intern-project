@@ -3,7 +3,7 @@ import { Request,Response } from "express";
 const limit= rateLimiter({
   windowMs: 1 * 60 * 1000,   /// 1 MINUTE 
   // 3 choti maximum request garna payo 1 minute bhitra ma user le yo chai testing ko lagi yeti rakheko maile 
-  max: 3,                     // limit each IP to 10 requests per window
+  max: 5,                     // limit each IP to 10 requests per window
   message: {
     error: {
       code: 429,
@@ -17,7 +17,7 @@ const limit= rateLimiter({
   //RateLimit-Limit: 3
 // RateLimit-Remaining: 1
 // RateLimit-Reset: 45
-
+//reset chai kasari gara?????????????? 
   keyGenerator:(req:Request):string =>{
     return req.ip || req.headers['x-forwarded-for'] as string || 'unknown-ip';
   }  
