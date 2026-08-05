@@ -6,6 +6,7 @@ import taskrouter from './routes/taskRoutes';
 import taskCollaboratorRouter from './routes/taskCollaboratorRoutes';
 import messageRoutes from './routes/messageRoutes';
 import errorHandler from './middlewares/errormiddleware';
+import notifroutes from './routes/notificationRoutes';
 
 const app = express();
 
@@ -76,7 +77,7 @@ app.use('/api/v1/auth', router);
 app.use('/api/v1/tasks', taskrouter);
 app.use('/api/v1/tasks', taskCollaboratorRouter);
 app.use('/api/v1/tasks', messageRoutes);
-
+app.use('/api/v1/notifications', notifroutes);
 // Health check
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', message: 'app running smoothly' });
