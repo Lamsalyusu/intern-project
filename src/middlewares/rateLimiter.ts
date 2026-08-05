@@ -1,5 +1,5 @@
 import rateLimiter from "express-rate-limit";
-import { Request,_Response } from "express";
+import { Request,Response } from "express";
 const limit= rateLimiter({
   windowMs: 1 * 60 * 1000,   /// 1 MINUTE 
   // 3 choti maximum request garna payo 1 minute bhitra ma user le yo chai testing ko lagi yeti rakheko maile 
