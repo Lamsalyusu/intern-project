@@ -1,4 +1,3 @@
-
 import {Sequelize,DataTypes,Model} from "sequelize"
 import sequelize  from "../config/db"
 class user extends Model{
