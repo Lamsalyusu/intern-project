@@ -1,5 +1,5 @@
 import rateLimiter from "express-rate-limit";
-import { Request,Response } from "express";
+import { Request,_Response } from "express";
 const limit= rateLimiter({
   windowMs: 1 * 60 * 1000,   /// 1 MINUTE 
   // 3 choti maximum request garna payo 1 minute bhitra ma user le yo chai testing ko lagi yeti rakheko maile 
@@ -25,7 +25,7 @@ const limit= rateLimiter({
 
 export default limit;
 
-// in case of somone is hiding their ips rack their account ID rather than their IP address. It does not matter if they switch VPN locations 100 times; if they are logged into the user account user_9876, they still only get 
+// in case of somone is hiding their ips track their account ID rather than their IP address. It does not matter if they switch VPN locations 100 times; if they are logged into the user account user_9876, they still only get 
 
 // keyGenerator: (req: Request) => {
 //   // If logged in, lock the rate limit to their database ID

@@ -7,7 +7,14 @@ export default [
     files: ["**/*.ts"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "argsIgnorePattern":"^_",
+          "varsIgnorePattern":"^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ],
     },
   },
   {
@@ -16,9 +23,20 @@ export default [
       "@typescript-eslint/no-require-imports": "off",
       "no-undef": "off",
       "@typescript-eslint/no-unused-vars": "off",
-       "no-unused-vars": "off",
-      
+       "no-unused-vars": [
+        "warn",
+        {
+          "argsIgnorePattern":"^_",
+          "varsIgnorePattern":"^_",
+          "caughtErrorIgnorePattern":"^_"
+        }
+       ],
     },
   },
 ];
+
+
+// varsIgnorePattern: "^_" — an unused variable starting with _ (like const _unused = ...) won't warn
+// argsIgnorePattern: "^_" — an unused function parameter starting with _ (like down(queryInterface, _Sequelize)) won't warn
+// caughtErrorsIgnorePattern: "^_" — an unused catch block error starting with _ (like catch (_error) {}) won't warn
 
