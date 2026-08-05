@@ -28,8 +28,8 @@ notification.init(
       allowNull: true,
     },
     created_at: DataTypes.DATE,
+    updated_at:DataTypes.DATE,
   },
-
     {
         sequelize,
         modelName: "Notification",
@@ -39,5 +39,4 @@ notification.init(
         updatedAt:'updated_at',
     }
 );
-
 export default notification;
