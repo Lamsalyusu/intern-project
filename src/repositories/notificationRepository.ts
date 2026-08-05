@@ -1,0 +1,24 @@
+import notification from "../models/notificationModel";
+
+//yo chai notification create garna ko lagi 
+async function create(user_id:string,type:string,payload:object){
+    return notification.create({user_id,type,payload});
+}
+async function findByUser(user_id:string,page:number,limit:number){
+    return notification.findAndCountAll({
+        where: {user_id},
+        limit,
+        offset: (page - 1) * limit,
+        order: [['created_at', 'DESC']] 
+    });
+}
+
+async function markAsRead(notification_id:string,user_id:string) {
+    return notification.update({read_at: new Date()}, {where: {id: notification_id, user_id}});
+}
+
+async function countUnread(user_id:string) {
+    return notification.count({where: {user_id, read_at: null}});
+}
+
+export { create, findByUser, markAsRead, countUnread };
