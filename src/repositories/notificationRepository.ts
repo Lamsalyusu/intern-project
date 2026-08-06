@@ -1,3 +1,4 @@
+
 import notification from "../models/notificationModel";
 
 //yo chai notification create garna ko lagi 
@@ -13,12 +14,34 @@ async function findByUser(user_id:string,page:number,limit:number){
     });
 }
 
-async function markAsRead(notification_id:string,user_id:string) {
-    return notification.update({read_at: new Date()}, {where: {id: notification_id, user_id}});
+
+async function markAsRead(notification_id: string, user_id: string) {
+
+    const notif = await notification.findOne({
+        where: {
+            id: notification_id,
+            user_id,
+        },
+    });
+
+    if (!notif) {
+        throw new Error("Notification not found");
+    }
+
+    if (notif.read_at) {
+        return notif;
+    }
+
+    notif.read_at = new Date();
+
+    await notif.save();
+
+    return notif;
 }
 
 async function countUnread(user_id:string) {
     return notification.count({where: {user_id, read_at: null}});
 }
+
 
 export { create, findByUser, markAsRead, countUnread };

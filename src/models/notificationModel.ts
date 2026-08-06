@@ -1,7 +1,13 @@
 import { Model, DataTypes } from "sequelize";
 import  sequelize  from "../config/db";
 
-class notification extends Model {}
+class notification extends Model {
+  declare id: string;
+  declare user_id: string;
+  declare type: string;
+  declare payload: object
+  declare read_at: Date | null;
+}
 
 notification.init(
   {

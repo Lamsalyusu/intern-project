@@ -30,7 +30,15 @@ const notificationController = {
             const page = parseInt(req.query.page as string) || 1;
             const limit = parseInt(req.query.limit as string) || 10;
             const result = await getNotificationsByUser(user_id,page,limit);
-            return res.status(200).json({data:result,message:'notifications fetched successfully'});
+            const {rows,count} = result;
+            return res.status(200).json({
+                data:rows,
+                meta:{
+                    page,
+                    limit,
+                    total:count
+                },
+                message:'notifications fetched successfully'});
         }
         catch(error:any){
             next(error);

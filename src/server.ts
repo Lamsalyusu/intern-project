@@ -2,8 +2,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 import  sequelize  from "./config/db";
 import app from './app';
-import initSocket from './sockets';
+import {initSocket} from './sockets/index';
 import { createServer } from 'node:http';
+import reminderJob from './jobs/reminderJob';
 
 const httpServer = createServer(app);
 initSocket(httpServer);
@@ -16,6 +17,8 @@ async function connectDB() {
   }
 }
 connectDB();
+reminderJob();
+
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
