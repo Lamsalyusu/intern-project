@@ -1,5 +1,30 @@
+// import js from "@eslint/js";
+// import tseslint from "typescript-eslint";
+// export default [
+//   js.configs.recommended,
+//   ...tseslint.configs.recommended,
+//   {
+//     files: ["**/*.ts"],
+//     rules: {
+//       "@typescript-eslint/no-explicit-any": "off",
+//       "@typescript-eslint/no-unused-vars": "warn",
+//     },
+//   },
+//   {
+//     files: ["**/*.js"],
+//     rules: {
+//       "@typescript-eslint/no-require-imports": "off",
+//       "no-undef": "off",
+//       "@typescript-eslint/no-unused-vars": "off",
+      
+//     },
+//   },
+// ];
+
+
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
+
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -10,8 +35,11 @@ export default [
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
-          "argsIgnorePattern":"^_",
-          "varsIgnorePattern":"^_",
+          "vars": "all",
+          "args": "after-used",
+          "ignoreRestSiblings": true,
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_",
           "caughtErrorsIgnorePattern": "^_"
         }
       ],
@@ -22,21 +50,22 @@ export default [
     rules: {
       "@typescript-eslint/no-require-imports": "off",
       "no-undef": "off",
+      // Turn off TS rule for JS files, use standard JS rule with ignore pattern
       "@typescript-eslint/no-unused-vars": "off",
-       "no-unused-vars": [
+      "no-unused-vars": [
         "warn",
         {
-          "argsIgnorePattern":"^_",
-          "varsIgnorePattern":"^_",
-          "caughtErrorIgnorePattern":"^_"
+          "vars": "all",
+          "args": "after-used",
+          "ignoreRestSiblings": true,
+          "varsIgnorePattern": "^_",
+          "argsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
         }
-       ],
+      ],
     },
   },
 ];
 
 
-// varsIgnorePattern: "^_" — an unused variable starting with _ (like const _unused = ...) won't warn
-// argsIgnorePattern: "^_" — an unused function parameter starting with _ (like down(queryInterface, _Sequelize)) won't warn
-// caughtErrorsIgnorePattern: "^_" — an unused catch block error starting with _ (like catch (_error) {}) won't warn
 
