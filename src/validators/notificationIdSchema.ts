@@ -5,3 +5,5 @@ export const notificationIdSchema = z.object({
     id: z.uuid("Invalid notification id"),
   }),
 });
+
+export type NotificationIdSchema = z.infer<typeof notificationIdSchema>;
