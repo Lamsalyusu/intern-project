@@ -1,7 +1,6 @@
 import {z} from 'zod';
 import validator from 'validator';
 export const notificationValidationSchema = z.object({
-  id:z.uuid('Invalid notification id'),
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(10),
 });
