@@ -5,9 +5,10 @@ import authMiddleware from '../middlewares/authmiddleware';
 import { validation,validateParams,validateQuery } from '../middlewares/validatemiddleware';
 import { notificationValidationSchema } from '../validators/notificationValidator';
 import { notificationIdSchema } from '../validators/notificationIdSchema';
+
 // notifroutes.post('/', authMiddleware, validation(notificationValidationSchema), notificationController.create);
 notifroutes.put('/:id/read', authMiddleware, validateParams(notificationIdSchema), notificationController.markAsRead);
 notifroutes.get('/', authMiddleware, validateQuery(notificationValidationSchema), notificationController.getByUser);
-notifroutes.get('/unread/count', authMiddleware, validateQuery(notificationValidationSchema), notificationController.countUnread);
+notifroutes.get('/unread/count', authMiddleware, notificationController.countUnread);
 
 export default notifroutes;
