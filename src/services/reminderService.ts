@@ -22,7 +22,7 @@ async function processReminder(){
                 due_date:reminder.due_date
             });
         //emit socket.io event
-        const io = getIO();
+        // const io = getIO();
         io.to(reminder.owner_id).emit('reminder', 
             {
                 task_id:reminder.id, 

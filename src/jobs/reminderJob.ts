@@ -1,9 +1,9 @@
-import corn from 'node-cron';
+import cron from 'node-cron';
 // import {processReminder} from '../services/reminderService';
 import processReminder from '../services/reminderService';
 
 async function reminderJob(){
-    corn.schedule('* * * * *',async()=>{
+    cron.schedule('*/5 * * * *',async()=>{
         try{
         await processReminder();
         console.log("Running reminder job");
