@@ -25,7 +25,7 @@ async function markAsRead(notification_id: string, user_id: string) {
     });
 
     if (!notif) {
-        throw new Error("Notification not found");
+        throw {status :404,message:'Notification not found'};
     }
 
     if (notif.read_at) {
