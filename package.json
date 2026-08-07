@@ -57,6 +57,7 @@
     "node-cron": "^4.6.0",
     "pg": "^8.22.0",
     "pg-hstore": "^2.3.4",
+    "psql": "^0.0.1",
     "sequelize": "^6.37.8",
     "socket.io": "^4.8.3",
     "swagger-ui-express": "^5.0.1",
