@@ -3,7 +3,7 @@ import cron from 'node-cron';
 import processReminder from '../services/reminderService';
 
 async function reminderJob(){
-    cron.schedule('*/5 * * * *',async()=>{
+    cron.schedule('*/10 * * * * *',async()=>{
         try{
         await processReminder();
         console.log("Running reminder job");
