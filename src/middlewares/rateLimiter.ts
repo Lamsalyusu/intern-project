@@ -3,7 +3,7 @@ import { Request,Response } from "express";
 const limit= rateLimiter({
   windowMs: 1 * 60 * 1000,   /// 1 MINUTE 
   // 3 choti maximum request garna payo 1 minute bhitra ma user le yo chai testing ko lagi yeti rakheko maile 
-  max: 5,                     // limit each IP to 10 requests per window
+  max: 15,                     // limit each IP to 10 requests per window
   message: {
     error: {
       code: 429,
