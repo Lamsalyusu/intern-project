@@ -41,43 +41,43 @@
 //   }
 // }
 
-// async function loadSharedTasks() {
-//   try {
-//     const res = await api('/tasks/shared-with-me');
-//     const collabRows = res.data || [];
-//     const list = document.getElementById('sharedTasksList');
-//     list.innerHTML = '';
+async function loadSharedTasks() {
+  try {
+    const res = await api('/tasks/shared-with-me');
+    const collabRows = res.data || [];
+    const list = document.getElementById('sharedTasksList');
+    list.innerHTML = '';
 
-//     if (collabRows.length === 0) {
-//       list.innerHTML = '<p>No shared tasks yet.</p>';
-//       return;
-//     }
+    if (collabRows.length === 0) {
+      list.innerHTML = '<p>No shared tasks yet.</p>';
+      return;
+    }
 
-//     collabRows.forEach(row => {
-//       const task = row.Task || row.task;
-//       if (!task) return;
+    collabRows.forEach(row => {
+      const task = row.Task || row.task;
+      if (!task) return;
 
-//       const card = document.createElement('div');
-//       card.className = 'task-card';
-//       card.addEventListener('click', () => {
-//         window.location.href = `task-detail.html?id=${task.id}`;
-//       });
-//       card.innerHTML = `
-//         <h3>${escapeHtml(task.title)}</h3>
-//         <p>${escapeHtml(task.description || '')}</p>
-//         <div class="task-meta">
-//           <span class="badge badge-${task.status}">${task.status}</span>
-//           <span class="badge badge-${task.priority}">${task.priority}</span>
-//           <span>Due: ${task.due_date ? new Date(task.due_date).toLocaleDateString() : '—'}</span>
-//         </div>
-//       `;
-//       list.appendChild(card);
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     document.getElementById('sharedTasksList').innerHTML = '<p>Could not load shared tasks.</p>';
-//   }
-// }
+      const card = document.createElement('div');
+      card.className = 'task-card';
+      card.addEventListener('click', () => {
+        window.location.href = `task-detail.html?id=${task.id}`;
+      });
+      card.innerHTML = `
+        <h3>${escapeHtml(task.title)}</h3>
+        <p>${escapeHtml(task.description || '')}</p>
+        <div class="task-meta">
+          <span class="badge badge-${task.status}">${task.status}</span>
+          <span class="badge badge-${task.priority}">${task.priority}</span>
+          <span>Due: ${task.due_date ? new Date(task.due_date).toLocaleDateString() : '—'}</span>
+        </div>
+      `;
+      list.appendChild(card);
+    });
+  } catch (err) {
+    console.error(err);
+    document.getElementById('sharedTasksList').innerHTML = '<p>Could not load shared tasks.</p>';
+  }
+}
 
 // function openModal() {
 //   document.getElementById('modal').classList.add('active');
