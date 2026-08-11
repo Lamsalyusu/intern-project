@@ -1,6 +1,6 @@
 import {Request,Response,NextFunction} from 'express';
 import { taskcollaboratorvalidation } from '../validators/taskCollaboratorValidator';
-import { createTaskCollaborator,deleteTaskCollaborator,getCollaboratorsByTask } from '../services/taskCollaboratorServices';
+import { createTaskCollaborator,deleteTaskCollaborator,getCollaboratorsByTask,getTasksSharedWithUser} from '../services/taskCollaboratorServices';
 const taskCollaboratorController = {
     create:async(req:Request,res:Response,next:NextFunction)=>{
         try{
@@ -47,6 +47,15 @@ const taskCollaboratorController = {
             // return res.status(error.status || 500).json({error:{message:error.message || 'something went wrong'}});
             next(error);
         }
-    }
+    },
+    getSharedTasks: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const user_id = (req as any).user.id;
+            const result = await getTasksSharedWithUser(user_id);
+            return res.status(200).json({ data: result, message: 'Shared tasks retrieved successfully' });
+        } catch (error: any) {
+            next(error);
+        }
+        },
 }
 export default taskCollaboratorController;
