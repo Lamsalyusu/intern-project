@@ -1,6 +1,11 @@
 import { Model,DataTypes } from "sequelize";
 import  sequelize  from "../config/db";
-class messages extends Model{}
+class messages extends Model{
+  declare id: string;
+  declare task_id: string;
+  declare sender_id: string;
+  declare body: string;
+}
 messages.init(
     {
       id: {
