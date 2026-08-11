@@ -1,6 +1,7 @@
 import { findOne,add,findAllByTask,remove } from "../repositories/taskCollaboratorRepository";
 import { findById } from "../repositories/taskRepository";
 import { findByEmail } from "../repositories/userRepository";
+import { findTasksForUser } from "../repositories/taskCollaboratorRepository";
 
 // ---- Add a collaborator to a task ----
 async function createTaskCollaborator(task_id:string,reqid:string,email:string){
@@ -66,5 +67,8 @@ if(delcollaborator === 0){
     throw {status:404,message:'no collaborator found on this task'}
 }
 }
+async function getTasksSharedWithUser(user_id: string) {
+  return findTasksForUser(user_id);
+}
 
-export {createTaskCollaborator,deleteTaskCollaborator,getCollaboratorsByTask}
+export {createTaskCollaborator,deleteTaskCollaborator,getCollaboratorsByTask,getTasksSharedWithUser}

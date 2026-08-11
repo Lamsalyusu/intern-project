@@ -8,8 +8,8 @@ async function markNotificationAsRead(notification_id:string,user_id:string){
     return markAsRead(notification_id, user_id);
 }
 
-async function getNotificationsByUser(user_id:string,page:number,limit:number){
-    return findByUser(user_id, page, limit);
+async function getNotificationsByUser(user_id:string,page:number,limit:number,unreadOnly:boolean=false){
+    return findByUser(user_id, page, limit, unreadOnly);
 }
 
 async function countUnreadNotifications(user_id:string){

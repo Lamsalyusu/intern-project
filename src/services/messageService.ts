@@ -5,9 +5,11 @@ import { createMessage, findByTask } from "../repositories/messageRepository";
 
 //yo function chai if owner and collborator lai access cha ki nai bhanne ko lagi 
 async function checkAccess(task_id:string,user_id:string){
+    console.log("CHECKING ACCESS:", { task_id, user_id });
     const task = await findTaskById(task_id);
+     console.log("TASK FOUND:", task ? { id: task.id, owner_id: task.owner_id } : null);
     if(!task){
-        throw { status :403 ,message:'task not found'}
+        throw { status :404 ,message:'task not found'}
     }
     // yo condition ma chai task ko owner ho bhanne bujhinchha
     const owner = task.owner_id === user_id;
@@ -17,7 +19,7 @@ async function checkAccess(task_id:string,user_id:string){
     if(!owner && !iscollaborator){
         throw { status :403 ,message: 'not authorized to access the chat'}
     }
-    return iscollaborator;
+    return true;
 
 }
 

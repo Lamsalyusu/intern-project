@@ -1,4 +1,5 @@
 // import messages from "../models/messageModel";
+import { findOne as findCollaborator } from "../repositories/taskCollaboratorRepository";
 import { findById,create,findByOwner,remove,update} from "../repositories/taskRepository";
 import { taskqueryschema,Taskrequire } from "../validators/taskValidator";
 
@@ -20,9 +21,12 @@ async function getTaskById(id:string,reqid:string){
     if(!gettask){
         throw {status:404,message:"doesnot exists"}
     }
-    if(gettask.owner_id !== reqid){
-        throw {status:403,message:'not their tasks'}
-    }
+    const isOwner = gettask.owner_id === reqid;
+    const isCollaborator = await findCollaborator(id, reqid);
+
+    if (!isOwner && !isCollaborator) {
+    throw { status: 403, message: "Not authorized to view this task" };
+  }
     return gettask;
 }
 
