@@ -13,7 +13,7 @@ async function connectDB() {
     await sequelize.authenticate();
     console.log("DB Connected successfully");
   } catch (error) {
-    console.log("Error while connecting DB", error);
+    console.log("Eerror while connecting DB", error);
   }
 }
 connectDB();

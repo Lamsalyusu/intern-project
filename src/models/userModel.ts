@@ -1,4 +1,4 @@
-import {Sequelize,DataTypes,Model} from "sequelize"
+import {Sequelize as _Sequelize ,DataTypes,Model} from "sequelize"
 import sequelize  from "../config/db"
 class user extends Model{
   declare id: string;

@@ -16,8 +16,8 @@ async function registerUser(data: RegisterInput) {
   }) as any;
   const token = signInToken({ id: user.id, email: user.email });
   return {
-    user: { id: user.id, name: user.name, email: user.email, role: user.role },
-    token,
+    user: { id: user.id, name: user.name, email: user.email, role: user.role }
+    // token,
   };
 }
 

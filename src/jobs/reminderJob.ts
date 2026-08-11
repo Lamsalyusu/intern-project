@@ -1,5 +1,4 @@
 import cron from 'node-cron';
-// import {processReminder} from '../services/reminderService';
 import processReminder from '../services/reminderService';
 
 async function reminderJob(){

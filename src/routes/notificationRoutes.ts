@@ -2,7 +2,7 @@ import express from 'express';
 const notifroutes = express.Router();
 import notificationController from '../controllers/notificationController';
 import authMiddleware from '../middlewares/authmiddleware';
-import { validation,validateParams,validateQuery } from '../middlewares/validatemiddleware';
+import { validateParams,validateQuery } from '../middlewares/validatemiddleware';
 import { notificationValidationSchema } from '../validators/notificationValidator';
 import { notificationIdSchema } from '../validators/notificationIdSchema';
 
