@@ -1,4 +1,4 @@
-import { TaskCollaborator } from "../models";
+import { Task, TaskCollaborator } from "../models";
 
 
 //--> is this specific person a collaborator on this specific task 
@@ -18,4 +18,12 @@ async function add(task_id:string,user_id:string){
 async function remove(task_id:string,user_id:string){
     return TaskCollaborator.destroy({where:{task_id,user_id}})
 }
-export {findOne,findAllByTask,add,remove};
+
+// taskCollaboratorRepository.ts — add this
+async function findTasksForUser(user_id: string) {
+  return TaskCollaborator.findAll({
+    where: { user_id },
+    include: [{ model: Task }],   // requires the Task↔TaskCollaborator association
+  });
+}
+export {findOne,findAllByTask,add,remove,findTasksForUser};

@@ -5,9 +5,13 @@ import notification from "../models/notificationModel";
 async function create(user_id:string,type:string,payload:object){
     return notification.create({user_id,type,payload});
 }
-async function findByUser(user_id:string,page:number,limit:number){
+async function findByUser(user_id:string,page:number,limit:number,unreadOnly:boolean=false){
+    const where: any = {user_id};
+    if (unreadOnly) {
+        where.read_at = null;
+    }
     return notification.findAndCountAll({
-        where: {user_id},
+        where,
         limit,
         offset: (page - 1) * limit,
         order: [['created_at', 'DESC']] 
