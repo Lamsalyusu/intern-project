@@ -3,12 +3,13 @@ import socketMiddleware from './socketMiddleware';
 import registerChatHandler from './chatHandler';
 
 let io:Server;
-
+const allowedOrigins = ['http://127.0.0.1:5500', 'http://localhost:5500', 'http://127.0.0.1:3000', 'http://localhost:3000'];
 function initSocket(httpServer:any){
- io = new Server(httpServer,{
+io = new Server(httpServer,{
     cors:{
-    origin:process.env.CLIENT_URL || 'http://0.0.0.0:3000',
-    // methods:['GET','POST']
+    origin:allowedOrigins,
+    methods:['GET','POST'],
+    credentials:true,
   },
 });
   const chatNamespace: Namespace = io.of('/chat');
