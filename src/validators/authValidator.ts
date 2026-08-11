@@ -36,7 +36,7 @@ export const registerSchema = z.object({
     .regex(/^\S+$/, "Password cannot contain spaces"),
 });
 
- const loginSchema = z.object({
+export const loginSchema = z.object({
   email: z
   .email("Invalid email format"),
   password: z
