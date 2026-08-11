@@ -9,4 +9,5 @@ import { collaboratorParamsSchema, taskIdParamSchema } from '../validators/param
 taskCollaboratorRouter.post('/:id/collaborators', authMiddleware, validateParams(taskIdParamSchema), validation(collaboratorschema), taskCollaboratorController.create);
 taskCollaboratorRouter.get('/:id/collaborators', authMiddleware, validateParams(taskIdParamSchema), taskCollaboratorController.getCollaborator);
 taskCollaboratorRouter.delete('/:id/collaborators/:userId', authMiddleware, validateParams(collaboratorParamsSchema), taskCollaboratorController.deleteCollaborators);
+taskCollaboratorRouter.get('/shared-with-me', authMiddleware, taskCollaboratorController.getSharedTasks);
 export default taskCollaboratorRouter;
