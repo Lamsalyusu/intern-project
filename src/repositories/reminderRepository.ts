@@ -1,9 +1,9 @@
 import { Op } from "sequelize";
-import task from "../models/taskModel";
+import Task from "../models/taskModel";
 
 async function findDueReminders() {
         const now = new Date();
-        const reminders = await task.findAll({
+        const reminders = await Task.findAll({
             where: {
                 reminder_at: {
                     //op bhaneko operator ho yesma 
@@ -20,7 +20,7 @@ async function findDueReminders() {
 }
 
 async function markReminderAsSent(task_id: string) {
-        const taskInstance = await task.findByPk(task_id);
+        const taskInstance = await Task.findByPk(task_id);
         if (!taskInstance) {
             throw new Error("Task not found");
         }

@@ -5,7 +5,7 @@ async function reminderJob(){
     cron.schedule('* */1 * * *',async()=>{
         try{
         await processReminder();
-        console.log("Running reminder job");
+        // console.log("Running reminder job");
         }
         catch(error){
             console.error("Error in reminder job",error);

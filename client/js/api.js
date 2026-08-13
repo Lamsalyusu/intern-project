@@ -49,3 +49,5 @@ function logout() {
   removeToken();
   window.location.href = 'index.html';
 }
+
+document.getElementById('btnLogout')?.addEventListener('click',logout)

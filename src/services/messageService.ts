@@ -5,9 +5,9 @@ import { createMessage, findByTask } from "../repositories/messageRepository";
 
 //yo function chai if owner and collborator lai access cha ki nai bhanne ko lagi 
 async function checkAccess(task_id:string,user_id:string){
-    console.log("CHECKING ACCESS:", { task_id, user_id });
+    // console.log("CHECKING ACCESS:", { task_id, user_id });
     const task = await findTaskById(task_id);
-     console.log("TASK FOUND:", task ? { id: task.id, owner_id: task.owner_id } : null);
+    //  console.log("TASK FOUND:", task ? { id: task.id, owner_id: task.owner_id } : null);
     if(!task){
         throw { status :404 ,message:'task not found'}
     }

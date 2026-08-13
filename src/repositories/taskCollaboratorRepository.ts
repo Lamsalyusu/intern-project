@@ -1,4 +1,4 @@
-import { Task, TaskCollaborator } from "../models";
+import { Task, TaskCollaborator, User } from "../models";
 
 
 //--> is this specific person a collaborator on this specific task 
@@ -7,8 +7,17 @@ async function findOne(task_id:string,user_id:string){
 }
 
 // --> who are the collaborators on this task
-async function findAllByTask(task_id:string){
-    return TaskCollaborator.findAll({where:{task_id}});
+async function findAllByTask(task_id: string) {
+  return TaskCollaborator.findAll({
+    where: { task_id },
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'name', 'email'],
+      },
+    ],
+  });
 }
 
 async function add(task_id:string,user_id:string){

@@ -1,66 +1,48 @@
-// async function loadNotifications() {
-//   try {
-//     const res = await api('/notifications?unreadOnly=true&page=1&limit=20');
-//     const list = document.getElementById('notificationsList');
-//     const notifs = res.data || [];
-
-//     if (notifs.length === 0) {
-//       list.innerHTML = '<p>No notifications.</p>';
-//       return;
-//     }
-
-//     list.innerHTML = ''
-//     notifs.forEach(n => {
-//       <div class="task-card" style="display:flex;justify-content:space-between;align-items:center;">
-//         <div>
-//           <strong>${escapeHtml(n.type)}</strong>
-//           <p style="font-size:14px;color:#666;">${JSON.stringify(n.payload)}</p>
-//           <time style="font-size:12px;color:#999;">${new Date(n.created_at).toLocaleString()}</time>
-//         </div>
-//         <!-- <button onclick="markRead('${n.id}')" style="width:auto;">Mark Read</button> -->
-//       </div>
-//     `).join('');
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-async function loadNotifications() {
+  async function loadNotifications() {
   try {
     const res = await api('/notifications?unreadOnly=true&page=1&limit=20');
     const list = document.getElementById('notificationsList');
     const notifs = res.data || [];
-
-    list.innerHTML = '';
 
     if (notifs.length === 0) {
       list.innerHTML = '<p>No notifications.</p>';
       return;
     }
 
-    notifs.forEach(n => {
-      const row = document.createElement('div');
-      row.className = 'task-card';
-      row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;';
+    list.innerHTML = notifs.map(n => {
+      const payload = n.payload || {};
+      let content = '';
+      
+      if (n.type === 'reminder') {
+        content = `
+          <div>
+            <strong>⏰ Reminder: ${escapeHtml(payload.title || 'Task')}</strong>
+            <p style="font-size:13px;color:#666;margin-top:4px;">${escapeHtml(payload.description || '')}</p>
+            <p style="font-size:12px;color:#ef4444;">Due: ${payload.due_date ? new Date(payload.due_date).toLocaleString() : '—'}</p>
+          </div>
+        `;
+      } else if (n.type === 'TASK_COLLABORATOR_ADDED') {
+        content = `<strong>🤝 Added as collaborator</strong>`;
+      } else {
+        content = `<strong>${escapeHtml(n.type)}</strong>`;
+      }
 
-      row.innerHTML = `
-        <div>
-          <strong>${escapeHtml(n.type)}</strong>
-          <p style="font-size:14px;color:#666;">${escapeHtml(JSON.stringify(n.payload))}</p>
-          <time style="font-size:12px;color:#999;">${new Date(n.created_at).toLocaleString()}</time>
+      return `
+        <div class="task-card" style="display:flex;justify-content:space-between;align-items:center;">
+          <div>${content}
+            <time style="font-size:12px;color:#999;">${new Date(n.created_at).toLocaleString()}</time>
+          </div>
+          <button class="btn-mark-read" data-id="${n.id}" style="width:auto;padding:6px 12px;background:#2563eb;color:white;border:none;border-radius:6px;cursor:pointer;">Mark Read</button>
         </div>
       `;
+    }).join('');
 
-      const btn = document.createElement('button');
-      btn.textContent = 'Mark Read';
-      btn.style.width = 'auto';
-      btn.addEventListener('click', () => markRead(n.id));
-
-      row.appendChild(btn);
-      list.appendChild(row);
+    list.querySelectorAll('.btn-mark-read').forEach(btn => {
+      btn.addEventListener('click', (e) => markRead(e.target.dataset.id));
     });
-  } catch (error) {
-    console.error(error);
+
+  } catch (err) {
+    console.error(err);
   }
 }
 
@@ -69,12 +51,16 @@ async function loadUnreadCount() {
     const res = await api('/notifications/unread/count');
     const count = res.data?.count || 0;
     const badge = document.getElementById('unreadBadge');
-    if (count > 0) {
-      badge.textContent = count;
-      badge.style.display = 'inline';
+    if (badge) {
+      if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'inline';
+      } else {
+        badge.style.display = 'none';
+      }
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
   }
 }
 

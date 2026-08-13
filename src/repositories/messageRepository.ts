@@ -13,10 +13,16 @@ const offset = (page - 1) * limit;
 
   return Message.findAndCountAll({
     where: { task_id },
-    include:[{model:User,as:'sender',attributes:['id','name','email']}],
     limit,
     offset,
     order: [["created_at", "ASC"]],
+    include:[
+      {
+        model:User,
+        as:'sender',
+        attributes:['id','name','email']
+      }
+    ],
   });
 }
 

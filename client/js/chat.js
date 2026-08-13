@@ -1,41 +1,4 @@
-// let socket = null;
 
-// function initChat(taskId) {
-//   socket = io('http://localhost:3000/chat', {
-//     auth: { token: getToken() }
-//   });
-
-//   socket.on('connect', () => {
-//     console.log('Socket connected');
-//     socket.emit('join_task', { task_id: taskId });
-//   });
-
-//   socket.on('receive_message', (msg) => {
-//     const box = document.getElementById('chatMessages');
-//     box.insertAdjacentHTML('beforeend', renderMsg(msg));
-//     box.scrollTop = box.scrollHeight;
-//   });
-
-//   socket.on('error', (err) => {
-//     console.error('Socket error:', err);
-//   });
-// }
-
-// function sendChat() {
-//   const input = document.getElementById('chatInput');
-//   const body = input.value.trim();
-//   if (!body || !socket) return;
-
-//   socket.emit('send_message', { task_id: taskId, body });
-//   input.value = '';
-// }
-
-// document.getElementById('chatInput')?.addEventListener('keypress', (e) => {
-//   if (e.key === 'Enter') sendChat();
-// });
-
-// document.getElementById('btnSendChat')?.addEventListener('click', sendChat);
-// document.getElementById('btnLogout')?.addEventListener('click', logout);
 
 
 let currentTaskId = null;
@@ -49,7 +12,7 @@ function initChat(taskId) {
   });
 
   socket.on('connect', () => {
-    console.log('Socket connected');
+    // console.log('Socket connected');
     socket.emit('join_task', { task_id: currentTaskId });
   });
 

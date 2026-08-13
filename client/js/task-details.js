@@ -1,13 +1,31 @@
 const params = new URLSearchParams(window.location.search);
 const taskId = params.get('id');
+let currentUserId = null;
 
 async function initTaskDetail() {
   if (!taskId) return window.location.href = 'dashboard.html';
 
-  // Load task
+  // 1. Get current logged-in user
+  try {
+    const meRes = await api('/auth/me');
+    currentUserId = meRes.data.id;
+  } catch (err) {
+    logout();
+    return;
+  }
+
+  // 2. Load task
+  let task;
   try {
     const res = await api(`/tasks/${taskId}`);
-    const task = res.data;
+    task = res.data;
+    
+    // HIDE collaborators section if NOT owner
+    if (currentUserId !== task.owner_id) {
+      const collabSection = document.getElementById('collabSection');
+      if (collabSection) collabSection.style.display = 'none';
+    }
+    
     document.getElementById('taskInfo').innerHTML = `
       <h1>${escapeHtml(task.title)}</h1>
       <p>${escapeHtml(task.description || '')}</p>
@@ -27,53 +45,40 @@ async function initTaskDetail() {
   initChat(taskId);
 }
 
-// async function loadCollaborators() {
-//   try {
-//     const res = await api(`/tasks/${taskId}/collaborators`);
-//     const list = document.getElementById('collaborators');
-//     const collabs = res.data || [];
-//     if (collabs.length === 0) {
-//       list.innerHTML = '<p style="color:#666;font-size:14px;">No collaborators yet.</p>';
-//       return;
-//     }
-//     list.innerHTML = collabs.map(c => `
-//       <div style="display:flex;justify-content:space-between;padding:8px;background:#f9f9f9;border-radius:6px;margin-bottom:6px;">
-//         <span>${escapeHtml(c.user?.name || c.user_id)}</span>
-//         <button onclick="removeCollab('${c.user_id}')" style="width:auto;background:#dc2626;padding:4px 8px;font-size:12px;">Remove</button>
-//       </div>
-//     `).join('');
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
-
 async function loadCollaborators() {
   try {
     const res = await api(`/tasks/${taskId}/collaborators`);
     const list = document.getElementById('collaborators');
     const collabs = res.data || [];
 
-    list.innerHTML = '';
-
     if (collabs.length === 0) {
       list.innerHTML = '<p style="color:#666;font-size:14px;">No collaborators yet.</p>';
       return;
     }
 
-    collabs.forEach(c => {
-      const row = document.createElement('div');
-      row.style.cssText = 'display:flex;justify-content:space-between;padding:8px;background:#f9f9f9;border-radius:6px;margin-bottom:6px;';
+    list.innerHTML = collabs.map(c => {
+      const name = c.user?.name || c.user?.email || c.user_id;
+      return `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#f9f9f9;border-radius:8px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:#2563eb;color:white;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:14px;">
+              ${name.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:14px;">${escapeHtml(name)}</div>
+              <div style="font-size:12px;color:#666;">${escapeHtml(c.user?.email || '')}</div>
+            </div>
+          </div>
+          <button class="btn-remove-collab" data-userid="${c.user_id}" style="width:auto;padding:6px 12px;font-size:12px;background:#ef4444;color:white;border:none;border-radius:6px;cursor:pointer;">Remove</button>
+        </div>
+      `;
+    }).join('');
 
-      row.innerHTML = `<span>${escapeHtml(c.user?.name || c.user_id)}</span>`;
-
-      const btn = document.createElement('button');
-      btn.textContent = 'Remove';
-      btn.style.cssText = 'width:auto;background:#dc2626;padding:4px 8px;font-size:12px;';
-      btn.addEventListener('click', () => removeCollab(c.user_id));
-
-      row.appendChild(btn);
-      list.appendChild(row);
+    list.querySelectorAll('.btn-remove-collab').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const userId = e.target.dataset.userid;
+        removeCollab(userId);
+      });
     });
   } catch (err) {
     console.error(err);
@@ -118,9 +123,10 @@ async function loadMessages() {
 }
 
 function renderMsg(m) {
+  const senderName = m.sender?.name || m.sender?.email || 'Unknown';
   return `
     <div class="msg">
-      <strong>${escapeHtml(m.sender?.name || 'Unknown')}</strong>
+      <strong>${escapeHtml(senderName)}</strong>
       <time>${new Date(m.created_at).toLocaleTimeString()}</time>
       <p>${escapeHtml(m.body)}</p>
     </div>
@@ -129,6 +135,8 @@ function renderMsg(m) {
 
 function escapeHtml(text) {
   const div = document.createElement('div');
-  div.textContent = text;
+  div.textContent = text || '';
   return div.innerHTML;
 }
+
+document.getElementById('btnLogout')?.addEventListener('click', logout);

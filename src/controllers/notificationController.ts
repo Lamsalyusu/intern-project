@@ -18,7 +18,7 @@ const notificationController = {
             const user_id = (req as any).user.id;
 
             const result = await markNotificationAsRead(notification_id,user_id);
-            console.log('markAsRead result:', result);
+            // console.log('markAsRead result:', result);
             return res.status(200).json({data:result,message:'notification marked as read successfully'});
         }
         catch(error:any){
@@ -52,7 +52,7 @@ const notificationController = {
         try{
             const user_id = (req as any).user.id;
             const result = await countUnreadNotifications(user_id);
-            console.log('countUnread result:', result);
+            // console.log('countUnread result:', result);
             return res.status(200).json({data:result,message:'unread notifications count fetched successfully'});
             // console.log('countUnread result:', result);
             // console.log()
