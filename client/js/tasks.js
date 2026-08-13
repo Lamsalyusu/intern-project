@@ -141,12 +141,34 @@ function openModal() {
 }
 function closeModal() {
   document.getElementById('modal').classList.remove('active');
+// 
 }
+const now = new Date();
+
+// Adjust for local timezone offset to get local time string
+const offset = now.getTimezoneOffset() * 60000;
+const localISOTime = new Date(now - offset).toISOString();
+
+// Slice string to extract 'YYYY-MM-DDTHH:MM'
+const currentDateTime = localISOTime.slice(0, 16);
+
+// FIX 1: Set min constraints immediately on page load, not during submit
+const dueDateInput = document.getElementById('due_date');
+const reminderInput = document.getElementById('reminder_at');
+const editDueDateInput = document.getElementById('editDueDate');
+const editReminderInput = document.getElementById('editReminderAt');
+
+if (dueDateInput) dueDateInput.setAttribute('min', currentDateTime);
+if (reminderInput) reminderInput.setAttribute('min', currentDateTime);
+if (editDueDateInput) editDueDateInput.setAttribute('min', currentDateTime);
+if (editReminderInput) editReminderInput.setAttribute('min', currentDateTime);
 
 const createForm = document.getElementById('createTaskForm');
 if (createForm) {
   createForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    
+    // FIX 2: Correctly pull .value instead of the setAttribute outcome
     const dueDateVal = document.getElementById('due_date').value;
     const reminderVal = document.getElementById('reminder_at').value;
     
@@ -169,7 +191,6 @@ if (createForm) {
     }
   });
 }
-
 
 function openEditModal(task) {
   document.getElementById('editId').value = task.id;
