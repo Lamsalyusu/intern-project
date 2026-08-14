@@ -55,8 +55,8 @@ async function loadTasks() {
       card.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:start;">
           <div style="flex:1; cursor:pointer;" class="task-clickable">
-            <h3>${escapeHtml(task.title)}</h3>
-            <p>${escapeHtml(task.description || '')}</p>
+            <h3>${(task.title)}</h3>
+            <p>${(task.description || '')}</p>
             <div class="task-meta">
               <span class="badge" style="background:${statusColor}20; color:${statusColor}; border:1px solid ${statusColor};">
                 ${displayStatus}
@@ -120,8 +120,8 @@ async function loadSharedTasks() {
         window.location.href = `task-detail.html?id=${task.id}`;
       });
       card.innerHTML = `
-        <h3>${escapeHtml(task.title)}</h3>
-        <p>${escapeHtml(task.description || '')}</p>
+        <h3>${(task.title)}</h3>
+        <p>${(task.description || '')}</p>
         <div class="task-meta">
           <span class="badge badge-${task.status}">${task.status}</span>
           <span class="badge badge-${task.priority}">${task.priority}</span>
@@ -254,12 +254,11 @@ document.getElementById('btnOpenModal')?.addEventListener('click', openModal);
 document.getElementById('btnCloseModal')?.addEventListener('click', closeModal);
 document.getElementById('btnCloseEditModal')?.addEventListener('click', closeEditModal);
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
+// function escapeHtml(text) {
+//   const div = document.createElement('div');
+//   div.textContent = text;
+//   return div.innerHTML;
+// }
 // Auto-refresh every 30 seconds to catch overdue tasks
 setInterval(loadTasks, 30000);
 

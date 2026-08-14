@@ -6,11 +6,13 @@ export const taskSchema = z.object({
     .string()
     .trim()
     .min(1,"title is reqired")
-    .max(50,'title must not exceed 50 chars')
+    .max(20,'title must not exceed 50 chars')
     .transform((val) => validator.escape(val)),
     description:z
     .string()
     .trim()
+    .min(20,'description is mininum 20 chars required')
+    .max(100,'max charcters can exceed 50')
     .optional()
     .transform((val) => (val ? validator.escape(val) : val)),
     status:z.

@@ -27,8 +27,8 @@ async function initTaskDetail() {
     }
     
     document.getElementById('taskInfo').innerHTML = `
-      <h1>${escapeHtml(task.title)}</h1>
-      <p>${escapeHtml(task.description || '')}</p>
+      <h1>${(task.title)}</h1>
+      <p>${(task.description || '')}</p>
       <div class="task-meta">
         <span class="badge badge-${task.status}">${task.status}</span>
         <span class="badge badge-${task.priority}">${task.priority}</span>

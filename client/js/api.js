@@ -13,6 +13,11 @@ function removeToken() {
 }
 
 async function api(endpoint, options = {}) {
+  const isAuthRoute = endpoint.includes('/auth/login') || endpoint.includes('/auth/register');
+  if (!isAuthRoute && isTokenExpired()) {
+    logout();
+    throw new Error('Session expired. Please log in again.');
+  }
   const url = `${API_BASE}${endpoint}`;
   const headers = {
     'Content-Type': 'application/json',
@@ -28,6 +33,11 @@ async function api(endpoint, options = {}) {
     ...options,
     headers,
   });
+  
+ if (res.status === 401) {
+    logout();
+    throw new Error('Unauthorized session. Please log in again.');
+  }
 
   const data = await res.json().catch(() => ({}));
 
@@ -40,8 +50,36 @@ async function api(endpoint, options = {}) {
 }
 
 function redirectIfNotAuth() {
-  if (!getToken()) {
-    window.location.href = 'index.html';
+  console.log("hello")
+  if (!getToken()||isTokenExpired()) {
+    // window.location.href = 'index.html';
+    logout();
+  }
+}
+
+function isTokenExpired() {
+  const token = getToken();
+  if (!token) return true;
+
+  try {
+    // JWT structure is: Header.Payload.Signature
+    const tokenparts = token.split('.');
+    const base64Url =tokenparts[1];
+    if(!base64Url) return true;
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+
+    const { exp } = JSON.parse(jsonPayload);
+    // exp is in seconds, Date.now() is in milliseconds
+    return Date.now() >= exp * 1000;
+  } catch (err) {
+    // If the token is corrupted or malformed, treat it as expired
+    return true;
   }
 }
 
