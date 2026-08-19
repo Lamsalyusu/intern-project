@@ -1,0 +1,84 @@
+syntax = "proto3";
+package taskPackage;
+
+
+enum Status {
+    STATUS_PENDING = 0;
+    STATUS_IN_PROGRESS = 1;
+    STATUS_COMPLETED = 2;
+}
+enum Priority {
+    PRIORITY_LOW =0;
+    PRIORITY_MEDIUM =1;
+    PRIORITY_HIGH =2;
+}
+
+service task{
+    rpc createTask (createReq) returns (createRes);
+    rpc getAllTask (getAllReq) returns (getAllRes);
+    rpc getOne (getOneReq) returns (getOneRes);
+    rpc update (updateReq) returns (updateRes);
+    rpc remove (removeReq) returns (removeRes);
+}
+
+message createReq {
+    string title = 1;
+    string description = 2;
+    Status status =3;
+    Priority priority =4;
+    string due_date = 5;
+}
+
+message createRes{
+    int32 id = 1;
+    Status status = 2;
+    Priority priority =3;
+    string title = 4;
+    string description =5;
+    string due_date =6;
+    string reminder_at = 7;
+    string owner_id = 8;
+    string updated_at = 9;
+    string created_at =10;
+
+}
+
+message getAllReq {
+}
+
+message getAllRes{
+    int32 count = 1;
+    repeated createRes getall = 2;
+}
+
+message getOneReq {
+    int32 task_id = 1;
+
+}
+
+message getOneRes {
+    createRes getone = 1;
+}
+
+message updateReq {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  Status status = 4;
+  Priority priority = 5;
+  string due_date = 6;
+  string reminder_at = 7;
+
+}
+
+message updateRes{
+    createRes updres = 1;
+}
+
+message removeReq {
+    string id = 1;
+}
+
+message removeRes {
+string message = 1;
+}
