@@ -1,12 +1,12 @@
 syntax = "proto3";
 package taskPackage;
 
-
 enum Status {
     STATUS_PENDING = 0;
     STATUS_IN_PROGRESS = 1;
     STATUS_COMPLETED = 2;
 }
+
 enum Priority {
     PRIORITY_LOW =0;
     PRIORITY_MEDIUM =1;
@@ -30,34 +30,41 @@ message createReq {
 }
 
 message createRes{
-    int32 id = 1;
-    Status status = 2;
-    Priority priority =3;
-    string title = 4;
-    string description =5;
-    string due_date =6;
-    string reminder_at = 7;
-    string owner_id = 8;
-    string updated_at = 9;
+    string id = 1;
+    string owner_id = 2;
+    string title = 3;
+    string description =4;
+    Status status = 5;
+    Priority priority =6;
+    string due_date =7;
+    string reminder_at = 8;
+    string reminder_status =9;
     string created_at =10;
+    string updated_at = 11;
 
 }
 
 message getAllReq {
+    Status status = 1;      // optional filter
+    Priority priority = 2;  // optional filter
+    int32 page = 3;
+    int32 limit = 4;
+    string sort_by = 5;
+    string order = 6;
 }
 
 message getAllRes{
     int32 count = 1;
-    repeated createRes getall = 2;
+    repeated createRes tasks = 2;
 }
 
 message getOneReq {
-    int32 task_id = 1;
+    string id =1;
 
 }
 
 message getOneRes {
-    createRes getone = 1;
+    createRes tasks = 1;
 }
 
 message updateReq {
@@ -72,7 +79,7 @@ message updateReq {
 }
 
 message updateRes{
-    createRes updres = 1;
+    createRes task = 1;
 }
 
 message removeReq {
