@@ -177,8 +177,8 @@ if (createForm) {
       description: document.getElementById('description').value,
       status: 'pending',  // ← Always pending
       priority: document.getElementById('priority').value,
-      due_date: dueDateVal ? new Date(dueDateVal).toISOString() : null,
-      reminder_at: reminderVal ? new Date(reminderVal).toISOString() : null,
+      due_date:  new Date(dueDateVal).toISOString(),
+      reminder_at: new Date(reminderVal).toISOString()
     };
 
     try {
