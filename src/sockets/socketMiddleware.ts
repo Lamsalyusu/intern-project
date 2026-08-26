@@ -1,7 +1,7 @@
 import {Socket } from "socket.io";
 import { verifyToken } from '../utils/jwt';
 // Middleware to authenticate incoming connections
-function socketMiddleware(socket:Socket,next:(_err?:Error)=>void){
+function socketMiddleware(socket:Socket,next:(err?:Error)=>void){
   // Extract data passed from the client during handshake
   const token = socket.handshake.auth.token;
   if (!token) {
