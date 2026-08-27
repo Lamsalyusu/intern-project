@@ -20,5 +20,15 @@ module.exports = {
         rejectUnauthorized: false
       }
     }
+  },
+  production: {
+    use_env_variable: 'DATABASE_URL_PRODUCTION',
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
   }
 };
